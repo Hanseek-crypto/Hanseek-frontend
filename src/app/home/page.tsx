@@ -11,6 +11,11 @@ import InfoTab from "./InfoTab";
 import SlideUpModal from "@/components/base/SlideUpModal";
 import CalendarInput from "@/components/base/CalendarInput";
 import Modal from "@/components/common/Modal";
+import { LongOrangeButton } from "@/components/base/LongOrangeButton";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { getSigner } from "@dynamic-labs/ethers-v6";
+import { Contract, parseEther } from "ethers";
+import colors from "@/styles/color";
 import { Heading2 } from "@/styles/texts";
 
 export default function Home() {
@@ -23,6 +28,29 @@ export default function Home() {
   const [isGoDown, setIsGoDown] = useState(false);
 
   const router = useRouter();
+  const { primaryWallet } = useDynamicContext();
+
+  const [txHash, setTxHash] = useState("");
+  const onPayment = async () => {
+    if (!primaryWallet) return;
+    const signer = await getSigner(primaryWallet);
+    const reservationCtrt = new Contract(
+      "0x6657eaf193969b6b8470a1C13964BaE9097D0E10",
+      ["function makeReservation() external payable"],
+      signer
+    );
+
+    const tx = await reservationCtrt.makeReservation({
+      value: parseEther("40"),
+    });
+
+    await tx.wait();
+
+    setTxHash(tx.hash);
+
+    setIsDepositPopUpModalOpen(false);
+    setIsCompletePopUpModalOpen(true);
+  };
 
   return (
     <>
@@ -129,10 +157,7 @@ export default function Home() {
         isOpen={isDepositPopUpModalOpen}
         description="The reservation will be confirmed once the deposit is paid."
         buttonText={"Payment"}
-        buttonOnClick={() => {
-          setIsDepositPopUpModalOpen(false);
-          setIsCompletePopUpModalOpen(true);
-        }}
+        buttonOnClick={onPayment}
       >
         <Image
           src="/images/hs_reservation_detail.svg"
@@ -149,6 +174,14 @@ export default function Home() {
         buttonOnClick={() => {
           router.push("/mypage");
         }}
+        extra={
+          <a
+            href={`https://evm-testnet.flowscan.io/tx/${txHash}`}
+            target="_blank"
+          >
+            <WhiteButton>View on Explorer</WhiteButton>
+          </a>
+        }
         title="Your reservation is all set!"
       >
         <div
@@ -184,4 +217,34 @@ const VideoContainer = styled.div<{ isGoDown: boolean }>`
   align-items: center;
   transition: transform 0.5s ease-in-out;
   transform: ${({ isGoDown }) => (isGoDown ? "translateY(-50%)" : "none")};
+`;
+
+const WhiteButton = styled.div`
+  width: 100%;
+  height: 64px;
+
+  background-color: white;
+  color: ${colors.primary};
+
+  font-weight: 600;
+  font-size: 20px;
+  font-family: SFPro;
+
+  border: 1px solid gray;
+  border-radius: 100px;
+  cursor: pointer;
+
+  margin-bottom: 8px;
+
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  &:active {
+    background-color: #d9d9d9; /* 클릭 시 조금 더 어두운 색상 */
+  }
 `;
