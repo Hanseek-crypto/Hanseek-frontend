@@ -9,6 +9,7 @@ import CldVideoPlayer from "@/components/CldVideoPlayer";
 import colors from "@/styles/color";
 import { Body2Semibold } from "@/styles/texts";
 import SlideUpModal from "@/components/base/SlideUpModal";
+import { signIn } from "next-auth/react";
 
 interface MyProfile {
   title: string;
@@ -20,6 +21,10 @@ export default function Mypage() {
   const [isCreator, setIsCreator] = useState(false);
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
+
+  const authWorldID = async () => {
+    const res = await signIn("worldcoin"); // when worldcoin is the only provider
+  };
 
   return (
     <>
@@ -69,7 +74,7 @@ export default function Mypage() {
         isOpen={isBecomeCreatorSlideUpModalOpen}
         onClose={() => setIsBecomeCreatorSlideUpModalOpen(false)}
         buttonText={"Verify with World ID"}
-        buttonOnClick={() => {}}
+        buttonOnClick={authWorldID}
       >
         <Image
           src={"/images/hs_verify_world_id.svg"}
@@ -152,7 +157,7 @@ const CreatorBar = ({ coinClick }: { coinClick: number }) => {
               width={12}
               height={12}
             />{" "}
-            Minimum 100 USDC required to withdraw.
+            Minimum 100 FLOW required to withdraw.
           </p>
           <p className="flex flex-row font-medium ml-4 text-xl">
             Total Rewards Earned:{" "}
