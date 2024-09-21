@@ -14,6 +14,8 @@ import { getWeb3Provider, getSigner } from "@dynamic-labs/ethers-v6";
 import { ethers, parseEther } from "ethers";
 import WithdrawABI from "../../abis/wtihdraw.json";
 import { withdrawAddress } from "@/lib/constants";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function Mypage() {
   const [activeTab, setActiveTab] = useState("History");
@@ -22,7 +24,13 @@ export default function Mypage() {
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
 
+  const router = useRouter();
+
   const { primaryWallet } = useDynamicContext();
+
+  const authWorldCoin = async () => {
+    const res = await signIn("worldcoin"); // when worldcoin is the only provider
+  };
 
   const withdraw = async () => {
     const provider = await getWeb3Provider(primaryWallet!);
@@ -94,7 +102,9 @@ export default function Mypage() {
         isOpen={isBecomeCreatorSlideUpModalOpen}
         onClose={() => setIsBecomeCreatorSlideUpModalOpen(false)}
         buttonText={"Verify with World ID"}
-        buttonOnClick={() => {}}
+        buttonOnClick={() => {
+          authWorldCoin();
+        }}
       >
         <Image
           src={"/images/hs_verify_world_id.svg"}
@@ -102,6 +112,7 @@ export default function Mypage() {
           width={720}
           height={232}
           style={{ margin: "72px 0 54px 0" }}
+          onClick={() => {}}
         />
       </SlideUpModal>
     </>
@@ -183,14 +194,14 @@ const CreatorBar = ({
               width={12}
               height={12}
             />{" "}
-            Minimum 100 USDC required to withdraw.
+            Minimum 100 FLOW required to withdraw.
           </p>
           <p className="flex flex-row font-medium ml-4 text-xl">
             Total Rewards Earned:{" "}
             <Image
               className="ml-2"
-              src="images/usdc-icon.svg"
-              alt="usdc"
+              src="/images/hs_flow_logo.svg"
+              alt="flow"
               width={20}
               height={20}
               style={{ marginRight: "6px" }}
@@ -287,25 +298,3 @@ const GeneralUserButton = styled.div`
     background-color: #d9d9d9; /* 클릭 시 조금 더 어두운 색상 */
   }
 `;
-
-// const CreatorBar = () => {
-//   return (
-//     <div className="w-[688px] h-[68px] fixed bottom-32 left-11 z-50 flex justify-center">
-//       <div className="flex flex-row items-center bg-[#FAFAFB] p-6 justify-between w-full max-w-4xl">
-//         <p className="flex flex-row font-medium ml-4 text-xl">
-//           Do you want to be a creator?{" "}
-//           <Image
-//             className="ml-2"
-//             src="images/usdc-icon.svg"
-//             alt="usdc"
-//             width={20}
-//             height={20}
-//           />{" "}
-//         </p>
-//         <button className="text-xl justify-end bg-[#FF5924] px-6 py-3 text-white rounded-3xl mr-4 hover:bg-orange-500">
-//           Withdraw
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };

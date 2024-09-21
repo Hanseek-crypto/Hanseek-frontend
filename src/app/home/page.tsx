@@ -1,12 +1,9 @@
 "use client";
 
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { getIsLoggedInState } from "@/redux/slice/authSlice";
-import Image from "next/image";
-import { Heading1, Heading2 } from "@/styles/texts";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import HomeSearchBar from "@/components/common/HomeSearchBar";
 import CldVideoPlayer from "@/components/CldVideoPlayer";
 import InteractionButtons from "./InteractionButtons";
@@ -14,7 +11,7 @@ import InfoTab from "./InfoTab";
 import SlideUpModal from "@/components/base/SlideUpModal";
 import CalendarInput from "@/components/base/CalendarInput";
 import Modal from "@/components/common/Modal";
-import { LongOrangeButton } from "@/components/base/LongOrangeButton";
+import { Heading2 } from "@/styles/texts";
 
 export default function Home() {
   const [isSlideUpModalOpen, setIsSlideUpModalOpen] = useState(false);
@@ -23,6 +20,7 @@ export default function Home() {
     useState(false);
   const [isPersonClicked, setIsPersonClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
+  const [isGoDown, setIsGoDown] = useState(false);
 
   const router = useRouter();
 
@@ -30,27 +28,48 @@ export default function Home() {
     <>
       <Container>
         <HomeSearchBar />
-        <CldVideoPlayer
-          width="768"
-          height="1024"
-          src="IMG_4173_vauw4c"
-          logo={{
-            imageUrl: "/images/hs_favicon.png",
-          }}
-          autoplay={true}
-          sourceTypes={["hls"]}
-          transformation={{
-            streaming_profile: "hd",
-          }}
-        />
-        <InteractionButtons />
-        <InfoTab handleOpenSlideUpModal={() => setIsSlideUpModalOpen(true)} />
+        <VideoContainer isGoDown={isGoDown}>
+          <CldVideoPlayer
+            width="768"
+            height="1024"
+            src="rest_5_doizt5"
+            logo={{
+              imageUrl: "/images/hs_favicon.png",
+            }}
+            autoplay={true}
+            sourceTypes={["hls"]}
+            transformation={{
+              streaming_profile: "hd",
+            }}
+          />
+          <CldVideoPlayer
+            width="768"
+            height="1024"
+            src="rest_4_q5pone"
+            logo={{
+              imageUrl: "/images/hs_favicon.png",
+            }}
+            autoplay={true}
+            sourceTypes={["hls"]}
+            transformation={{
+              streaming_profile: "hd",
+            }}
+          />
+        </VideoContainer>
+        <div style={{ width: "100%", height: "50%" }}>
+          <InteractionButtons />
+          <InfoTab
+            handleOpenSlideUpModal={() => setIsSlideUpModalOpen(true)}
+            isGoDown={isGoDown}
+          />
+        </div>
 
         <Image
           src="/images/hs_updown.png"
           alt="up down"
           width={80}
           height={136}
+          onClick={() => setIsGoDown(!isGoDown)}
           style={{
             position: "absolute",
             bottom: "100px",
@@ -150,9 +169,19 @@ export default function Home() {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 200%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const VideoContainer = styled.div<{ isGoDown: boolean }>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+  transform: ${({ isGoDown }) => (isGoDown ? "translateY(-50%)" : "none")};
 `;
