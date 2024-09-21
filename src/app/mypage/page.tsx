@@ -9,10 +9,11 @@ import CldVideoPlayer from "@/components/CldVideoPlayer";
 import colors from "@/styles/color";
 import { Body2Semibold } from "@/styles/texts";
 import SlideUpModal from "@/components/base/SlideUpModal";
-
-interface MyProfile {
-  title: string;
-}
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { getWeb3Provider, getSigner } from "@dynamic-labs/ethers-v6";
+import { ethers, parseEther } from "ethers";
+import WithdrawABI from "../../abis/wtihdraw.json";
+import { withdrawAddress } from "@/lib/constants";
 
 export default function Mypage() {
   const [activeTab, setActiveTab] = useState("History");
@@ -20,6 +21,30 @@ export default function Mypage() {
   const [isCreator, setIsCreator] = useState(false);
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
+
+  const { primaryWallet } = useDynamicContext();
+
+  const withdraw = async () => {
+    const provider = await getWeb3Provider(primaryWallet!);
+    const signer = await getSigner(primaryWallet!);
+    const creatorWallet = await signer.getAddress();
+    console.log(creatorWallet);
+
+    // let WithdrawContract = new ethers.Contract(
+    //   withdrawAddress,
+    //   WithdrawABI,
+    //   signer
+    // );
+
+    // console.log(WithdrawContract);
+
+    // const allocateReward = await WithdrawContract.allocateReward(
+    //   creatorWallet,
+    //   30
+    // );
+    // const receiptAllocateReward = allocateReward.wait();
+    // console.log(receiptAllocateReward);
+  };
 
   return (
     <>
@@ -54,7 +79,7 @@ export default function Mypage() {
           coinClick={coinClick}
         />
         {isCreator ? (
-          <CreatorBar coinClick={coinClick} />
+          <CreatorBar coinClick={coinClick} withdraw={withdraw} />
         ) : (
           <GeneralUserBar
             setIsBecomeCreatorSlideUpModalOpen={
@@ -83,7 +108,7 @@ export default function Mypage() {
   );
 }
 
-const Profile = ({ title }: MyProfile) => {
+const Profile = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       <Image
@@ -120,7 +145,13 @@ const Profile = ({ title }: MyProfile) => {
   );
 };
 
-const CreatorBar = ({ coinClick }: { coinClick: number }) => {
+const CreatorBar = ({
+  coinClick,
+  withdraw,
+}: {
+  coinClick: number;
+  withdraw: any;
+}) => {
   const coinNum = () => {
     if (coinClick === 1) {
       return 95.5;
@@ -174,6 +205,9 @@ const CreatorBar = ({ coinClick }: { coinClick: number }) => {
               : "bg-gray-300 text-white cursor-not-allowed"
           }`}
           disabled={coinNum() < 100}
+          onClick={() => {
+            withdraw();
+          }}
         >
           Withdraw
         </button>

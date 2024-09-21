@@ -42,7 +42,6 @@ export default function Home() {
           transformation={{
             streaming_profile: "hd",
           }}
-          // onPlay={handleVideoPlay}
         />
         <InteractionButtons />
         <InfoTab handleOpenSlideUpModal={() => setIsSlideUpModalOpen(true)} />
