@@ -9,11 +9,12 @@ import CldVideoPlayer from "@/components/CldVideoPlayer";
 import colors from "@/styles/color";
 import { Body2Semibold } from "@/styles/texts";
 import SlideUpModal from "@/components/base/SlideUpModal";
-import { signIn } from "next-auth/react";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { getWeb3Provider, getSigner } from "@dynamic-labs/ethers-v6";
+import { ethers, parseEther } from "ethers";
+import WithdrawABI from "../../abis/wtihdraw.json";
+import { withdrawAddress } from "@/lib/constants";
 
-interface MyProfile {
-  title: string;
-}
 
 export default function Mypage() {
   const [activeTab, setActiveTab] = useState("History");
@@ -22,8 +23,10 @@ export default function Mypage() {
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
 
+
   const authWorldID = async () => {
     const res = await signIn("worldcoin"); // when worldcoin is the only provider
+
   };
 
   return (
@@ -59,7 +62,7 @@ export default function Mypage() {
           coinClick={coinClick}
         />
         {isCreator ? (
-          <CreatorBar coinClick={coinClick} />
+          <CreatorBar coinClick={coinClick} withdraw={withdraw} />
         ) : (
           <GeneralUserBar
             setIsBecomeCreatorSlideUpModalOpen={
@@ -88,7 +91,7 @@ export default function Mypage() {
   );
 }
 
-const Profile = ({ title }: MyProfile) => {
+const Profile = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       <Image
@@ -125,7 +128,13 @@ const Profile = ({ title }: MyProfile) => {
   );
 };
 
-const CreatorBar = ({ coinClick }: { coinClick: number }) => {
+const CreatorBar = ({
+  coinClick,
+  withdraw,
+}: {
+  coinClick: number;
+  withdraw: any;
+}) => {
   const coinNum = () => {
     if (coinClick === 1) {
       return 95.5;
@@ -179,6 +188,9 @@ const CreatorBar = ({ coinClick }: { coinClick: number }) => {
               : "bg-gray-300 text-white cursor-not-allowed"
           }`}
           disabled={coinNum() < 100}
+          onClick={() => {
+            withdraw();
+          }}
         >
           Withdraw
         </button>

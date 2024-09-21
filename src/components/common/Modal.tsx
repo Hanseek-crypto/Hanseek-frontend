@@ -13,6 +13,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  extra?: React.ReactNode;
   className?: string;
   description: string;
   buttonText: string;
@@ -28,6 +29,7 @@ export default function Modal({
   className,
   description,
   buttonText,
+  extra,
   buttonOnClick,
 }: ModalProps) {
   if (!isOpen) {
@@ -75,6 +77,8 @@ export default function Modal({
             {description}
           </Body2Regular>
         )}
+
+        {extra}
         <LongOrangeButton onClick={() => buttonOnClick()} active={true}>
           {buttonText}
         </LongOrangeButton>
