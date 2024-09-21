@@ -17,12 +17,14 @@ import { withdrawAddress } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
+
 export default function Mypage() {
   const [activeTab, setActiveTab] = useState("History");
   const [coinClick, setCoinClick] = useState(0);
   const [isCreator, setIsCreator] = useState(false);
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
+
 
   const router = useRouter();
 
@@ -44,14 +46,9 @@ export default function Mypage() {
     //   signer
     // );
 
-    // console.log(WithdrawContract);
+  const authWorldID = async () => {
+    const res = await signIn("worldcoin"); // when worldcoin is the only provider
 
-    // const allocateReward = await WithdrawContract.allocateReward(
-    //   creatorWallet,
-    //   30
-    // );
-    // const receiptAllocateReward = allocateReward.wait();
-    // console.log(receiptAllocateReward);
   };
 
   return (
@@ -102,9 +99,9 @@ export default function Mypage() {
         isOpen={isBecomeCreatorSlideUpModalOpen}
         onClose={() => setIsBecomeCreatorSlideUpModalOpen(false)}
         buttonText={"Verify with World ID"}
-        buttonOnClick={() => {
-          authWorldCoin();
-        }}
+        buttonOnClick={authWorldID}
+
+
       >
         <Image
           src={"/images/hs_verify_world_id.svg"}
