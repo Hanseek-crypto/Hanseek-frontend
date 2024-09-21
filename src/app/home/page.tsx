@@ -24,7 +24,6 @@ export default function Home() {
   const [isPersonClicked, setIsPersonClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
 
-
   const router = useRouter();
 
   const [coins, setCoins] = useState<number>(99.0);
@@ -87,7 +86,6 @@ export default function Home() {
             cursor: "pointer",
           }}
         />
-
       </Container>
       <SlideUpModal
         isOpen={isSlideUpModalOpen}
