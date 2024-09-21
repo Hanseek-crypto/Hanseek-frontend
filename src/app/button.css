@@ -1,0 +1,27 @@
+.button {
+  width: 100%;
+  height: 64px;
+  background-color: white;
+  color: #ff5924; /* colors.primary 변수를 사용, JS에서 값 설정 */
+  font-weight: 600;
+  font-size: 20px;
+  font-family: SFPro;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  &:active {
+    background-color: #d9d9d9; /* 클릭 시 조금 더 어두운 색상 */
+  }
+}
+
+.button-container {
+  /* 필요시 여기에 컨테이너에 대한 스타일을 추가할 수 있습니다 */
+}
