@@ -15,7 +15,9 @@ const Header = () => {
   return (
     <>
       {pathname === "/signup" && <Header_Title title="Sign up" />}
-      {pathname === "/terms" && <Header_Title title="Terms and use" />}
+      {pathname === "/creator-terms" && (
+        <Header_Title title="Creator Agreement & Rewards" />
+      )}
       {pathname === "/creator" && <Header_Title title="Upload" />}
     </>
   );

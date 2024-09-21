@@ -24,35 +24,7 @@ export default function Home() {
   const [isPersonClicked, setIsPersonClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
 
-
   const router = useRouter();
-
-  const [coins, setCoins] = useState<number>(99.0);
-  const [views, setViews] = useState<number>(0);
-
-  useEffect(() => {
-    const storedCoins = localStorage.getItem("totalCoins");
-    const storedViews = localStorage.getItem("totalViews");
-
-    if (storedCoins) {
-      setCoins(parseFloat(storedCoins));
-    }
-    if (storedViews) {
-      setViews(parseInt(storedViews, 10));
-    }
-
-    if (views > 0) {
-      const newCoinsValue = (coins + 0.0001).toFixed(5);
-      setCoins(parseFloat(newCoinsValue));
-      localStorage.setItem("totalCoins", newCoinsValue);
-    }
-
-    localStorage.setItem("totalViews", views.toString());
-  }, [views, coins]);
-
-  const handleVideoPlay = () => {
-    setViews((prevViews) => prevViews + 1);
-  };
 
   return (
     <>
@@ -70,7 +42,7 @@ export default function Home() {
           transformation={{
             streaming_profile: "hd",
           }}
-          onPlay={handleVideoPlay}
+          // onPlay={handleVideoPlay}
         />
         <InteractionButtons />
         <InfoTab handleOpenSlideUpModal={() => setIsSlideUpModalOpen(true)} />
@@ -87,13 +59,13 @@ export default function Home() {
             cursor: "pointer",
           }}
         />
-
       </Container>
       <SlideUpModal
         isOpen={isSlideUpModalOpen}
         onClose={() => setIsSlideUpModalOpen(false)}
         buttonText="Reserve now"
         buttonOnClick={() => setIsDepositPopUpModalOpen(true)}
+        buttonActive={isPersonClicked && isTimeClicked}
       >
         <Heading2
           style={{ width: "100%", textAlign: "center", marginTop: "28px" }}
@@ -154,12 +126,12 @@ export default function Home() {
       <Modal
         onClose={() => setIsCompletePopUpModalOpen(false)}
         isOpen={isCompletePopUpModalOpen}
-        description="메롱메롱" //수정 필요
-        buttonText={"Confirm my reservation"}
+        description="Can’t wait for your visit./The creator earned a reward for helping you discover this restaurant!"
+        buttonText={"Go to My Page"}
         buttonOnClick={() => {
           router.push("/mypage");
         }}
-        title="The payment is complete!"
+        title="Your reservation is all set!"
       >
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}

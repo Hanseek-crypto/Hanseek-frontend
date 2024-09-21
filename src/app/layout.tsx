@@ -6,9 +6,6 @@ import GlobalStyle from "@/styles/global";
 import Providers from "@/redux/provider";
 import "next-cloudinary/dist/cld-video-player.css";
 
-// // Register the "en" locale.
-// TimeAgo.addDefaultLocale(en);
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
