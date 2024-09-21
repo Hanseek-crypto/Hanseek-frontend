@@ -47,7 +47,7 @@ export default function Mypage() {
             }}
           />
         </nav>
-        <Profile title="Stella.leeee" />
+        <Profile title="Yennie" />
         <MyPageTab
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -88,7 +88,7 @@ const Profile = ({ title }: MyProfile) => {
     <div className="flex flex-col items-center justify-center">
       <Image
         className="rounded-full"
-        src="/images/profile_image.png"
+        src="/images/hs_profile_mypage.svg"
         alt="mypage_profile"
         width={100}
         height={100}
@@ -143,7 +143,7 @@ const CreatorBar = ({ coinClick }: { coinClick: number }) => {
         style={{ borderRadius: "8px", display: "flex", alignItems: "center" }}
       >
         <div>
-          <p className="ml-3 p-1 flex flex-row text-[#FF5924]">
+          <p className="ml-3 p-1 flex flex-row text-[#FF7700]">
             {" "}
             <Image
               className="mr-1"
@@ -152,7 +152,7 @@ const CreatorBar = ({ coinClick }: { coinClick: number }) => {
               width={12}
               height={12}
             />{" "}
-            Minimum withdrawal amount : 100USDC
+            Minimum 100 USDC required to withdraw.
           </p>
           <p className="flex flex-row font-medium ml-4 text-xl">
             Total Rewards Earned:{" "}

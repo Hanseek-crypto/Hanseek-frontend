@@ -73,6 +73,7 @@ const VideoContent = ({ coinClick }: { coinClick: number }) => {
               height: "299px", // 추가적인 높이 고정
               objectFit: "cover", // 비디오 콘텐츠가 고정된 크기에 맞게 보이도록 설정
             }}
+            autoPlay
           >
             This is a browser that does not support video.
           </video>
@@ -86,7 +87,7 @@ const VideoContent = ({ coinClick }: { coinClick: number }) => {
             }}
             onClick={() => handleVideoClick(index)}
           >
-            {playingVideoIndex === index ? (
+            {/* {playingVideoIndex === index ? (
               <Image
                 src="/images/pause_icon.svg"
                 alt="pasue"
@@ -100,7 +101,7 @@ const VideoContent = ({ coinClick }: { coinClick: number }) => {
                 width={40}
                 height={40}
               />
-            )}
+            )} */}
           </button>
           <Image
             src={

@@ -60,7 +60,7 @@ export default function Signup() {
           <Image
             src={
               isClicked
-                ? "/images/hs_profile_stella.svg"
+                ? "/images/hs_profile_yennie.svg"
                 : "/images/hs_profile_set.svg"
             }
             alt="profile set"
@@ -83,7 +83,7 @@ export default function Signup() {
         <NicknameInput type="text" placeholder="Enter your Nickname" />
         <FooterWrapper>
           <LongOrangeButton active={true} onClick={() => router.push("/home")}>
-            Save and start Hanseek
+            {"Let’s get started!"}
           </LongOrangeButton>
         </FooterWrapper>
       </Container>

@@ -56,33 +56,21 @@ export default function InfoTab({
           }}
         >
           <div>
+            <Image
+              src="/images/hs_10pc_off.svg"
+              alt="10 percent off"
+              width={100}
+              height={26}
+              // style={{ margin: "0 0 6px 0" }}
+            />
             <Heading3>Jangwon Korean Restaurant</Heading3>
             <Image
               src="/images/hs_location_singapore.svg"
               alt="singpore"
-              width={90}
+              width={137}
               height={18}
-              style={{ margin: "6px 0" }}
+              style={{ margin: "3px 0 0 0" }}
             />
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Image
-                src="/images/hs_rating_4stars.svg"
-                alt="rating"
-                width={88}
-                height={16}
-              />
-              <div
-                style={{
-                  fontFamily: "Pretendard",
-                  fontSize: "12px",
-                  fontWeight: "400",
-                  color: "rgba(0, 0, 0, 0.68)",
-                  margin: "2px 0 0 4px",
-                }}
-              >
-                {"(8101)"}
-              </div>
-            </div>
           </div>
 
           <OrangeButton onClick={() => handleOpenSlideUpModal()}>
