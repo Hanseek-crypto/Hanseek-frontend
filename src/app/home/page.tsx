@@ -37,7 +37,7 @@ export default function Home() {
           logo={{
             imageUrl: "/images/hs_favicon.png",
           }}
-          autoplay={false}
+          autoplay={true}
           sourceTypes={["hls"]}
           transformation={{
             streaming_profile: "hd",

@@ -55,10 +55,10 @@ export default function Creator() {
               }}
               autoplay
               //여기는 잘 모르겠음
-              sourceTypes={["hls"]}
-              transformation={{
-                streaming_profile: "hd",
-              }}
+              // sourceTypes={["hls"]}
+              // transformation={{
+              //   streaming_profile: "hd",
+              // }}
             />
             <Image
               src="/images/hs_add_location.svg"
@@ -182,7 +182,7 @@ export default function Creator() {
           setIsPopupModalOpen(false);
         }}
         isOpen={isPopupModalOpen}
-        description="From now on, you can earn revenue from your videos."
+        description="Great job! Now you can start earning rewards from your video."
         buttonText={"Go to My page"}
         buttonOnClick={() => {
           router.push("/mypage");

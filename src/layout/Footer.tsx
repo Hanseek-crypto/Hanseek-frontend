@@ -1,7 +1,7 @@
 import colors from "@/styles/color";
 import { styled } from "styled-components";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface ContainerProps {
@@ -13,6 +13,7 @@ export default function Footer() {
 
   const isMyPage = path === "/mypage";
   const backgroundcolor = isMyPage ? colors.white : colors.black;
+  const router = useRouter();
 
   const homeImageSrc = isMyPage
     ? "/images/hs_foot_home_black.svg"
@@ -33,7 +34,7 @@ export default function Footer() {
           style={{ cursor: "pointer" }}
         />
       </Link>
-      <Link href="">
+      <Link href="/creator">
         <Image
           src="/images/hs_foot_plus.svg"
           alt="plus"
