@@ -11,17 +11,33 @@ import { Body2Semibold } from "@/styles/texts";
 import SlideUpModal from "@/components/base/SlideUpModal";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { getWeb3Provider, getSigner } from "@dynamic-labs/ethers-v6";
-import { ethers, parseEther } from "ethers";
+import { ethers, parseEther, Contract } from "ethers";
 import WithdrawABI from "../../abis/wtihdraw.json";
 import { withdrawAddress } from "@/lib/constants";
 
-export default function Mypage() {
+export function Mypage() {
   const [activeTab, setActiveTab] = useState("History");
   const [coinClick, setCoinClick] = useState(0);
   const [isCreator, setIsCreator] = useState(false);
   const [isBecomeCreatorSlideUpModalOpen, setIsBecomeCreatorSlideUpModalOpen] =
     useState(false);
 
+  const [txHash, setTxHash] = useState("");
+  const onWithdraw = async () => {
+    if (!primaryWallet) return;
+    const signer = await getSigner(primaryWallet);
+    const withdrawCtrt = new Contract(
+      "0xCA5802F9B1A72e47bce75AAc85D005fB3e1a584f",
+      ["function withdrawCtrt(address payable user) external"],
+      signer
+    );
+
+    const tx = await withdrawCtrt.withdrawCtrt(await signer.getAddress());
+
+    await tx.wait();
+
+    setTxHash(tx.hash);
+  };
   const { primaryWallet } = useDynamicContext();
 
   const withdraw = async () => {
@@ -79,7 +95,7 @@ export default function Mypage() {
           coinClick={coinClick}
         />
         {isCreator ? (
-          <CreatorBar coinClick={coinClick} withdraw={withdraw} />
+          <CreatorBar coinClick={coinClick} withdraw={onWithdraw} />
         ) : (
           <GeneralUserBar
             setIsBecomeCreatorSlideUpModalOpen={
@@ -309,3 +325,5 @@ const GeneralUserButton = styled.div`
 //     </div>
 //   );
 // };
+
+export default Mypage;
