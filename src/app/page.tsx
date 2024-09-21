@@ -6,7 +6,8 @@ import LoginButton from "@/components/common/LoginButton";
 import { Body2Regular, Heading1, Heading2, Heading3 } from "@/styles/texts";
 import { useRouter } from "next/navigation";
 import colors from "@/styles/color";
-import { LongOrangeButton } from "@/components/base/LongOrangeButton";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+import "./button.css";
 
 export default function HomeBeforeLogin() {
   const router = useRouter();

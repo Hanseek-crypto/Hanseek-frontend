@@ -5,9 +5,9 @@ import Layout from "@/layout/Layout";
 import GlobalStyle from "@/styles/global";
 import Providers from "@/redux/provider";
 import "next-cloudinary/dist/cld-video-player.css";
-
-// // Register the "en" locale.
-// TimeAgo.addDefaultLocale(en);
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +21,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const dynamic_pkey = process.env.NEXT_PUBLIC_DYNAMIC_PRIVATE_KEY;
   return (
     <html lang="en">
       <body>
         <GlobalStyle />
         <Providers>
-          <Layout>{children}</Layout>
+          <DynamicContextProvider
+            settings={{
+              environmentId: dynamic_pkey as string,
+              walletConnectors: [EthereumWalletConnectors],
+            }}
+          >
+            <Layout>{children}</Layout>
+          </DynamicContextProvider>
         </Providers>
       </body>
     </html>

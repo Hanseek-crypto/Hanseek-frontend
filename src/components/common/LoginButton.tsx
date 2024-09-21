@@ -7,11 +7,24 @@ import { useRouter } from "next/navigation";
 import { AlchemyProvider, ethers } from "ethers";
 import { styled } from "styled-components";
 import colors from "@/styles/color";
+import { useDynamicContext, useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
   // const getSigner = useGetSigner();
   const router = useRouter();
+
+  const { setShowAuthFlow, handleLogOut, primaryWallet } = useDynamicContext();
+  const isLoggedIn = useIsLoggedIn();
+  const handleWalletConnect = () => {
+    setShowAuthFlow(true);
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/signup");
+    }
+  }, [isLoggedIn]);
 
   const onLogin = async () => {
     // admin용
@@ -32,10 +45,11 @@ const LoginButton = () => {
     //     profileImage: userInfo.profileImage!,
     //   })
     // );
-    router.push("/signup");
   };
 
-  return <LoginBaseButton onClick={onLogin}>Sign Up</LoginBaseButton>;
+  return (
+    <LoginBaseButton onClick={handleWalletConnect}>Sign Up</LoginBaseButton>
+  );
 };
 
 export default LoginButton;

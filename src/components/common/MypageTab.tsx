@@ -1,18 +1,26 @@
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import VideoContent from "./VideoContent";
+import Image from "next/image";
 
 export default function MyPageTab({
   activeTab,
   setActiveTab,
+  coinClick,
 }: {
   activeTab: string;
   setActiveTab: Dispatch<SetStateAction<string>>;
+  coinClick: number;
 }) {
   const ColoredLine = () => (
     <hr className="w-full mt-2 h-1 bg-orange-500 border-none m-0" />
   );
 
   const tabs = [
+    {
+      name: "History",
+      icon: "/images/history_icon.svg",
+      activeIcon: "/images/clicked_history_icon.svg",
+    },
     {
       name: "Videos",
       icon: "/images/video.icon.svg",
@@ -22,11 +30,6 @@ export default function MyPageTab({
       name: "Likes",
       icon: "/images/heart_icon.svg",
       activeIcon: "/images/clicked_heart_icon.svg",
-    },
-    {
-      name: "History",
-      icon: "/images/history_icon.svg",
-      activeIcon: "/images/clicked_history_icon.svg",
     },
     {
       name: "Badge",
@@ -68,15 +71,27 @@ export default function MyPageTab({
         ))}
       </div>
 
-      <div className="mt-4">
-        {activeTab === "Videos" && <VideoContent />}
-        {activeTab === "Likes" && <LikesContent />}
+      <div>
         {activeTab === "History" && <HistoryContent />}
+        {activeTab === "Videos" && <VideoContent coinClick={coinClick} />}
+        {activeTab === "Likes" && <LikesContent />}
         {activeTab === "Badge" && <BadgeContent />}
       </div>
     </>
   );
 }
+
+const HistoryContent = () => {
+  return (
+    <Image
+      src={"/images/hs_history.svg"}
+      alt="history"
+      width={768}
+      height={498}
+      style={{ cursor: "pointer" }}
+    />
+  );
+};
 
 const LikesContent = () => {
   return (
@@ -84,10 +99,10 @@ const LikesContent = () => {
   );
 };
 
-const HistoryContent = () => {
-  return <div></div>;
-};
-
 const BadgeContent = () => {
-  return <div></div>;
+  return (
+    <div style={{ width: "100%", padding: "0px 24px" }}>
+      <Image src="/images/hs_badge.svg" alt="badge" width={720} height={564} />
+    </div>
+  );
 };
