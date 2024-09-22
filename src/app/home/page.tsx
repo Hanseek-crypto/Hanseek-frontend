@@ -19,12 +19,12 @@ import colors from "@/styles/color";
 import { Heading2 } from "@/styles/texts";
 
 export default function Home() {
-  const [isSlideUpModalOpen, setIsSlideUpModalOpen] = useState(false);
+  const [isSlideUpModalOpen, setIsSlideUpModalOpen] = useState(true);
   const [isDepositPopUpModalOpen, setIsDepositPopUpModalOpen] = useState(false);
   const [isCompletePopUpModalOpen, setIsCompletePopUpModalOpen] =
-    useState(false);
-  const [isPersonClicked, setIsPersonClicked] = useState(false);
-  const [isTimeClicked, setIsTimeClicked] = useState(false);
+    useState(true);
+  const [isPersonClicked, setIsPersonClicked] = useState(true);
+  const [isTimeClicked, setIsTimeClicked] = useState(true);
   const [isGoDown, setIsGoDown] = useState(false);
 
   const router = useRouter();
@@ -176,7 +176,7 @@ export default function Home() {
         }}
         extra={
           <a
-            href={`https://evm-testnet.flowscan.io/tx/${txHash}`}
+            href={`https://evm-testnet.flowscan.io/tx/0x05629a87d6a44e9bf5016d95e62390167fed513fe6cdb07f9d79dda7a94e31ca`}
             target="_blank"
           >
             <WhiteButton>View on Explorer</WhiteButton>
