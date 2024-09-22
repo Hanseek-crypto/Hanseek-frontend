@@ -2,6 +2,9 @@
 
 Hanseek is a blockchain-based video review platform that restores trust in restaurant recommendations. By leveraging blockchain technology, we ensure transparency and authenticity in reviews, providing users with reliable restaurant recommendations. Verified reviewers post reviews using **World ID**, ensuring that only real people contribute. All reviews are stored on Flow's blockchain, making them tamper-proof and fully transparent. **Dynamic integration** enables seamless onboarding, allowing users to engage effortlessly in the real world, even without prior blockchain knowledge.
 
+## Contracts
+https://github.com/Hanseek-crypto/Hanseek-contract
+
 ## Features
 
 - **Verified Reviews with World ID**: Only real, verified people can post reviews, ensuring authenticity and trust in restaurant recommendations.
@@ -51,20 +54,3 @@ Hanseek was built with a consumer-first mindset, focusing on a smooth and access
 
 - Figma
 
-## Getting Started
-
-To get started with Hanseek, follow the instructions below:
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) installed
-- [Hardhat](https://hardhat.org/getting-started/) installed
-- [Flow CLI](https://docs.onflow.org/flow-cli/install/) for interacting with Flow blockchain
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/Hanseek-crypto/Hanseek-contract.git
-   ```
