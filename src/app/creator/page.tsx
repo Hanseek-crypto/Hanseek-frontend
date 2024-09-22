@@ -49,7 +49,7 @@ export default function Creator() {
             <CldVideoPlayer
               width="768"
               height="498"
-              src="IMG_4173_vauw4c"
+              src="jangwon-restaurant_j0ycl3"
               logo={{
                 imageUrl: "/images/hs_favicon.png",
               }}

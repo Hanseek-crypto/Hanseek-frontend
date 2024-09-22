@@ -7,14 +7,20 @@ import { LongOrangeButton } from "@/components/base/LongOrangeButton";
 
 export default function InfoTab({
   handleOpenSlideUpModal,
+  isGoDown,
 }: {
   handleOpenSlideUpModal: () => void;
+  isGoDown: boolean;
 }) {
   return (
     <Container>
       <div style={{ display: "flex", alignItems: "center" }}>
         <Image
-          src="/images/hs_rest1_user_profile.svg"
+          src={
+            isGoDown
+              ? "/images/hs_profile_tina.svg"
+              : "/images/hs_rest1_user_profile.svg"
+          }
           alt="user profile"
           width={40}
           height={40}
@@ -29,12 +35,17 @@ export default function InfoTab({
             marginLeft: "11px",
           }}
         >
-          angigez
+          {isGoDown ? "tina" : "angigez"}
         </div>
       </div>
       <Body1Regular style={{ color: "white", marginTop: "8px" }}>
-        {"I highly recommend this Korean restaurant I"}
-        <br /> {"visited through a friend's introduction because..."}
+        {isGoDown
+          ? "Steamed Egg was great!!"
+          : "I highly recommend this Korean restaurant I"}
+        <br />{" "}
+        {isGoDown
+          ? "I will go tomorrow and tomorrow after tomorrow!!"
+          : "visited through a friend's introduction because..."}
       </Body1Regular>
       <Body1Medium style={{ color: "white", margin: "12px 0 24px 0" }}>
         #Singapore #Koreanfood #Restaurant
