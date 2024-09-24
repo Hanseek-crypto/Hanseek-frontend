@@ -19,12 +19,12 @@ import colors from "@/styles/color";
 import { Heading2 } from "@/styles/texts";
 
 export default function Home() {
-  const [isSlideUpModalOpen, setIsSlideUpModalOpen] = useState(true);
+  const [isSlideUpModalOpen, setIsSlideUpModalOpen] = useState(false);
   const [isDepositPopUpModalOpen, setIsDepositPopUpModalOpen] = useState(false);
   const [isCompletePopUpModalOpen, setIsCompletePopUpModalOpen] =
-    useState(true);
-  const [isPersonClicked, setIsPersonClicked] = useState(true);
-  const [isTimeClicked, setIsTimeClicked] = useState(true);
+    useState(false);
+  const [isPersonClicked, setIsPersonClicked] = useState(false);
+  const [isTimeClicked, setIsTimeClicked] = useState(false);
   const [isGoDown, setIsGoDown] = useState(false);
 
   const router = useRouter();
@@ -39,6 +39,8 @@ export default function Home() {
       ["function makeReservation() external payable"],
       signer
     );
+    setIsDepositPopUpModalOpen(false);
+    setIsCompletePopUpModalOpen(true);
 
     const tx = await reservationCtrt.makeReservation({
       value: parseEther("40"),
@@ -47,9 +49,6 @@ export default function Home() {
     await tx.wait();
 
     setTxHash(tx.hash);
-
-    setIsDepositPopUpModalOpen(false);
-    setIsCompletePopUpModalOpen(true);
   };
 
   return (
